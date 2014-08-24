@@ -5,7 +5,7 @@ class PinsController < ApplicationController
 
 
   def index
-   @pins = Pin.all.order("created_at DESC")
+   @pins = Pin.all.order("created_at DESC").paginate(:page => params[:page], :per_page => 4)
   end
 
   def show
@@ -19,7 +19,7 @@ class PinsController < ApplicationController
   end
 
   def create
-    
+
     @pin = current_user.pins.build(pin_params)
 
     if @pin.save
